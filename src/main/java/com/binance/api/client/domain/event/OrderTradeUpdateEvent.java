@@ -1,19 +1,14 @@
 package com.binance.api.client.domain.event;
 
-import com.binance.api.client.domain.ExecutionType;
-import com.binance.api.client.domain.OrderRejectReason;
-import com.binance.api.client.domain.OrderSide;
-import com.binance.api.client.domain.OrderStatus;
-import com.binance.api.client.domain.OrderType;
-import com.binance.api.client.domain.TimeInForce;
+import com.binance.api.client.constant.BinanceApiConstants;
+import com.binance.api.client.domain.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Order or trade report update event.
- *
+ * <p>
  * This event is embedded as part of a user data update event.
  *
  * @see UserDataUpdateEvent
@@ -25,7 +20,7 @@ public class OrderTradeUpdateEvent {
   private String eventType;
 
   @JsonProperty("E")
-  private long eventTime;
+  private Long eventTime;
 
   @JsonProperty("s")
   private String symbol;
@@ -129,6 +124,30 @@ public class OrderTradeUpdateEvent {
   @JsonProperty("t")
   private Long tradeId;
 
+  /**
+   * Order creation time.
+   */
+  @JsonProperty("O")
+  private Long orderCreationTime;
+
+  /**
+   * Cumulative quote asset transacted quantity.
+   */
+  @JsonProperty("Z")
+  private String cumulativeQuoteQty;
+
+  /**
+   * Last quote asset transacted quantity (i.e. lastPrice * lastQty).
+   */
+  @JsonProperty("Y")
+  private String lastQuoteQty;
+
+  /**
+   * Quote Order Qty.
+   */
+  @JsonProperty("Q")
+  private String quoteOrderQty;
+
   public String getEventType() {
     return eventType;
   }
@@ -137,11 +156,11 @@ public class OrderTradeUpdateEvent {
     this.eventType = eventType;
   }
 
-  public long getEventTime() {
+  public Long getEventTime() {
     return eventTime;
   }
 
-  public void setEventTime(long eventTime) {
+  public void setEventTime(Long eventTime) {
     this.eventTime = eventTime;
   }
 
@@ -225,7 +244,7 @@ public class OrderTradeUpdateEvent {
     this.orderRejectReason = orderRejectReason;
   }
 
-  public long getOrderId() {
+  public Long getOrderId() {
     return orderId;
   }
 
@@ -273,26 +292,57 @@ public class OrderTradeUpdateEvent {
     this.commissionAsset = commissionAsset;
   }
 
-  public long getOrderTradeTime() {
+  public Long getOrderTradeTime() {
     return orderTradeTime;
   }
 
-  public void setOrderTradeTime(long orderTradeTime) {
+  public void setOrderTradeTime(Long orderTradeTime) {
     this.orderTradeTime = orderTradeTime;
   }
 
-  public long getTradeId() {
+  public Long getTradeId() {
     return tradeId;
   }
 
-  public void setTradeId(long tradeId) {
+  public void setTradeId(Long tradeId) {
     this.tradeId = tradeId;
   }
 
+  public Long getOrderCreationTime() {
+    return orderCreationTime;
+  }
+
+  public void setOrderCreationTime(Long orderCreationTime) {
+    this.orderCreationTime = orderCreationTime;
+  }
+
+  public String getCumulativeQuoteQty() {
+    return cumulativeQuoteQty;
+  }
+
+  public void setCumulativeQuoteQty(String cumulativeQuoteQty) {
+    this.cumulativeQuoteQty = cumulativeQuoteQty;
+  }
+
+  public String getLastQuoteQty() {
+    return lastQuoteQty;
+  }
+
+  public void setLastQuoteQty(String lastQuoteQty) {
+    this.lastQuoteQty = lastQuoteQty;
+  }
+
+  public String getQuoteOrderQty() {
+    return quoteOrderQty;
+  }
+
+  public void setQuoteOrderQty(String quoteOrderQty) {
+    this.quoteOrderQty = quoteOrderQty;
+  }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
         .append("eventType", eventType)
         .append("eventTime", eventTime)
         .append("symbol", symbol)
@@ -313,6 +363,10 @@ public class OrderTradeUpdateEvent {
         .append("commissionAsset", commissionAsset)
         .append("orderTradeTime", orderTradeTime)
         .append("tradeId", tradeId)
+        .append("orderCreationTime", orderCreationTime)
+        .append("cumulativeQuoteQty", cumulativeQuoteQty)
+        .append("lastQuoteQty", lastQuoteQty)
+        .append("quoteOrderQty", quoteOrderQty)
         .toString();
   }
 }
