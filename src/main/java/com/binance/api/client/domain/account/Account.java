@@ -2,6 +2,14 @@ package com.binance.api.client.domain.account;
 
 import com.binance.api.client.constant.BinanceApiConstants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.JsonElement;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Query;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
@@ -148,8 +156,14 @@ public class Account {
     return emptyBalance;
   }
 
+  public LendingCoin getLendingPosition(String symbol) {
+	  return null;
+  }
+  
+  
   @Override
   public String toString() {
+	  System.out.println("HEYYYYYY");
     return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
         .append("makerCommission", makerCommission)
         .append("takerCommission", takerCommission)

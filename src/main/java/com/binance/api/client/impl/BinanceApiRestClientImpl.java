@@ -9,12 +9,23 @@ import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.market.*;
 import retrofit2.Call;
+import retrofit2.Response;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import static com.binance.api.client.impl.BinanceApiServiceGenerator.createService;
 import static com.binance.api.client.impl.BinanceApiServiceGenerator.executeSync;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
+import okhttp3.ResponseBody;
+import okhttp3.internal.Util;
 /**
  * Implementation of Binance's REST API using Retrofit with synchronous/blocking method calls.
  */
@@ -167,6 +178,37 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     return executeSync(binanceApiService.getAccount(recvWindow, timestamp));
   }
 
+
+  public String removeFirstandLast(String str) 
+  { 
+      str = str.substring(1, str.length() - 1); 
+      return str; 
+  } 
+  
+
+	private static String res(ResponseBody body) throws IOException {
+	  Charset charset = Util.bomAwareCharset(body.source(),Charset.defaultCharset());
+	    return body.source().readString(charset);
+	}
+	
+  @Override
+  public LendingCoin getLendingPosition(String asset) throws JsonSyntaxException {
+    ResponseBody body = executeSync(binanceApiService.getLendingPosition(asset,BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    Gson g = new Gson();  
+    LendingCoin s;
+	try {
+		s = g.fromJson(removeFirstandLast(res(body)), LendingCoin.class);
+		return s;
+	} catch (JsonSyntaxException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+  }
+  
   @Override
   public Account getAccount() {
     return getAccount(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis());

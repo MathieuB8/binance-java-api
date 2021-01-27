@@ -1,8 +1,11 @@
 package com.binance.api.client;
 
+import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.account.Account;
 import com.binance.api.client.domain.account.DepositAddress;
 import com.binance.api.client.domain.account.DepositHistory;
+import com.binance.api.client.domain.account.LendingCoin;
+import com.binance.api.client.domain.account.MarginTransaction;
 import com.binance.api.client.domain.account.NewOrder;
 import com.binance.api.client.domain.account.NewOrderResponse;
 import com.binance.api.client.domain.account.Order;
@@ -24,6 +27,13 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
+import com.google.gson.JsonElement;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -212,6 +222,8 @@ public interface BinanceApiRestClient {
    */
   Account getAccount();
 
+  LendingCoin getLendingPosition(String asset);
+  
   /**
    * Get trades for a specific account and symbol.
    *
