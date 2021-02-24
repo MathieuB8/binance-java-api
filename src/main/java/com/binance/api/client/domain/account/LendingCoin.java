@@ -29,8 +29,8 @@ public class LendingCoin {
 	    return freeAmount;
 	  }
 	
-	  public String lockedAmount() {
-	    return freeAmount;
+	  public String getlockedAmount() {
+	    return lockedAmount;
 	  }
 
 	  public String gettotalInterest() {
