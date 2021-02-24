@@ -32,6 +32,11 @@ public class LendingCoin {
 	  public String getlockedAmount() {
 	    return lockedAmount;
 	  }
+	
+	  public String getfrezeAmount() {
+	    return freezeAmount;
+	  }
+	
 
 	  public String gettotalInterest() {
 	    return totalInterest;
