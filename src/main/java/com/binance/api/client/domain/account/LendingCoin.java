@@ -28,6 +28,10 @@ public class LendingCoin {
 	  public String getfreeAmount() {
 	    return freeAmount;
 	  }
+	
+	  public String lockedAmount() {
+	    return freeAmount;
+	  }
 
 	  public String gettotalInterest() {
 	    return totalInterest;
